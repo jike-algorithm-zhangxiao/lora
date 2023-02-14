@@ -1,5 +1,7 @@
 #https://github.com/huggingface/diffusers/tree/main/examples/dreambooth
 
+conda activate zx
+
 export MODEL_NAME="runwayml/stable-diffusion-v1-5"
 export INSTANCE_DIR="/home/ubuntu/jc/jeambooth/uploads/63d905fd8db824f963d0663i"
 export OUTPUT_DIR="/home/ubuntu/jc/jeambooth/fine-tunes/63d905fd8db824f963d0663i.person/lora"
