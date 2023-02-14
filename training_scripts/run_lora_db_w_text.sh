@@ -1,6 +1,6 @@
 #https://github.com/huggingface/diffusers/tree/main/examples/dreambooth
 
-conda activate zx
+conda activate lora
 
 export MODEL_NAME="runwayml/stable-diffusion-v1-5"
 export INSTANCE_DIR="/home/ubuntu/jc/jeambooth/uploads/63d905fd8db824f963d0663i"
