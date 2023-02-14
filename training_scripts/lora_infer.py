@@ -20,7 +20,7 @@ def infer(model_base, model_path, prompt, output_dir, negative_prompt, num_sampl
         pipe,
         model_path,
         patch_text=True,
-        patch_ti=True,
+        patch_ti=False,
         patch_unet=True,
     )
 
