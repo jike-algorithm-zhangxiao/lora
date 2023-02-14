@@ -1,13 +1,14 @@
 #https://github.com/huggingface/diffusers/tree/main/examples/dreambooth
-export MODEL_NAME="stabilityai/stable-diffusion-2-1-base"
-export INSTANCE_DIR="./data_example_text"
-export OUTPUT_DIR="./output_example_text"
+
+export MODEL_NAME="runwayml/stable-diffusion-v1-5"
+export INSTANCE_DIR="/home/ubuntu/jc/jeambooth/uploads/63d905fd8db824f963d0663i"
+export OUTPUT_DIR="/home/ubuntu/jc/jeambooth/fine-tunes/63d905fd8db824f963d0663i.person/lora"
 
 accelerate launch train_lora_dreambooth.py \
   --pretrained_model_name_or_path=$MODEL_NAME  \
   --instance_data_dir=$INSTANCE_DIR \
   --output_dir=$OUTPUT_DIR \
-  --instance_prompt="game character bnha" \
+  --instance_prompt="a lyc person" \
   --train_text_encoder \
   --resolution=512 \
   --train_batch_size=1 \
@@ -17,4 +18,4 @@ accelerate launch train_lora_dreambooth.py \
   --color_jitter \
   --lr_scheduler="constant" \
   --lr_warmup_steps=0 \
-  --max_train_steps=10000
+  --max_train_steps=1000
