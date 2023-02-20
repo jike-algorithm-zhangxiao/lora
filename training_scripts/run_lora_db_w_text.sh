@@ -10,15 +10,15 @@ accelerate launch train_lora_dreambooth.py \
   --pretrained_model_name_or_path=$MODEL_NAME  \
   --instance_data_dir=$INSTANCE_DIR \
   --output_dir=$OUTPUT_DIR \
-  --instance_prompt="a lyc person" \
+  --instance_prompt="a <s1><s2><slyc> person" \
   --train_text_encoder \
   --resolution=512 \
-  --train_batch_size=4 \
+  --train_batch_size=1 \
   --gradient_accumulation_steps=1 \
   --learning_rate=1e-4 \
-  --learning_rate_text=5e-5 \
+  --learning_rate_text=1e-5 \
   --color_jitter \
   --lr_scheduler="linear" \
   --lr_warmup_steps=0 \
-  --max_train_steps=2500 \
-  --lora_rank=32
+  --max_train_steps=1200 \
+  --lora_rank=64

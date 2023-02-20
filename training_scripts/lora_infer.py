@@ -23,7 +23,7 @@ def infer(model_path, lora_path, prompt, output_dir, negative_prompt, num_sample
         patch_ti=True,
         patch_unet=True,
     )
-
+    lora_scale=0.9
     tune_lora_scale(pipe.unet, lora_scale)
     tune_lora_scale(pipe.text_encoder, lora_scale)
     g_cuda = torch.Generator(device='cuda')
