@@ -8,8 +8,8 @@ from diffusers import StableDiffusionPipeline, DPMSolverMultistepScheduler, \
 from lora_diffusion import tune_lora_scale, patch_pipe
 
 
-def infer(model_base, model_path, prompt, output_dir, negative_prompt, num_samples, scale, steps, seed):
-    pipe = StableDiffusionPipeline.from_pretrained(model_base, safety_checker=None, torch_dtype=torch.float16)
+def infer(model_path, lora_path, prompt, output_dir, negative_prompt, num_samples, scale, steps, seed):
+    pipe = StableDiffusionPipeline.from_pretrained(model_path, safety_checker=None, torch_dtype=torch.float16)
     #pipe.scheduler = DPMSolverMultistepScheduler.from_config(pipe.scheduler.config)
     # pipe.scheduler = DDIMScheduler(beta_start=0.00085, beta_end=0.012,
     #                                beta_schedule="scaled_linear", clip_sample=False,set_alpha_to_one=False)
@@ -18,9 +18,9 @@ def infer(model_base, model_path, prompt, output_dir, negative_prompt, num_sampl
     #pipe.set_use_memory_efficient_attention_xformers(True)
     patch_pipe(
         pipe,
-        model_path,
+        lora_path,
         patch_text=True,
-        patch_ti=False,
+        patch_ti=True,
         patch_unet=True,
     )
 
@@ -53,7 +53,7 @@ def infer(model_base, model_path, prompt, output_dir, negative_prompt, num_sampl
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--model_path', default='models/xyc/800')
-    parser.add_argument('--model_base', default=None)
+    parser.add_argument('--lora_path', default=None)
     parser.add_argument('--prompt', default='photo of guoguo cat in the forest')
     parser.add_argument('--output_dir', default='output/guoguo')
     parser.add_argument('--negative_prompt', default='photoshop')
@@ -62,4 +62,4 @@ if __name__ == '__main__':
     parser.add_argument('--steps', default=50)
     parser.add_argument('--seed', default=135353)
     args = parser.parse_args()
-    infer(args.model_base, args.model_path, args.prompt, args.output_dir, args.negative_prompt, args.num_samples, args.scale, args.steps, args.seed)
+    infer(args.model_path, args.lora_path, args.prompt, args.output_dir, args.negative_prompt, args.num_samples, args.scale, args.steps, args.seed)
