@@ -18,7 +18,7 @@ accelerate launch train_lora_dreambooth.py \
   --learning_rate=1e-4 \
   --learning_rate_text=5e-5 \
   --color_jitter \
-  --lr_scheduler="constant" \
+  --lr_scheduler="linear" \
   --lr_warmup_steps=0 \
-  --max_train_steps=1000 \
-  --lora_rank=96
+  --max_train_steps=2500 \
+  --lora_rank=32

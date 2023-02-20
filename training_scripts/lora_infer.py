@@ -8,7 +8,7 @@ from diffusers import StableDiffusionPipeline, DPMSolverMultistepScheduler, \
 from lora_diffusion import tune_lora_scale, patch_pipe
 
 
-def infer(model_path, lora_path, prompt, output_dir, negative_prompt, num_samples, scale, steps, seed):
+def infer(model_path, lora_path, prompt, output_dir, negative_prompt, num_samples, scale, steps, seed, lora_scale):
     pipe = StableDiffusionPipeline.from_pretrained(model_path, safety_checker=None, torch_dtype=torch.float16)
     #pipe.scheduler = DPMSolverMultistepScheduler.from_config(pipe.scheduler.config)
     # pipe.scheduler = DDIMScheduler(beta_start=0.00085, beta_end=0.012,
@@ -24,8 +24,8 @@ def infer(model_path, lora_path, prompt, output_dir, negative_prompt, num_sample
         patch_unet=True,
     )
 
-    tune_lora_scale(pipe.unet, 1.00)
-    tune_lora_scale(pipe.text_encoder, 1.00)
+    tune_lora_scale(pipe.unet, lora_scale)
+    tune_lora_scale(pipe.text_encoder, lora_scale)
     g_cuda = torch.Generator(device='cuda')
     g_cuda.manual_seed(int(seed))
 
@@ -61,5 +61,6 @@ if __name__ == '__main__':
     parser.add_argument('--scale', default=7.5)
     parser.add_argument('--steps', default=50)
     parser.add_argument('--seed', default=135353)
+    parser.add_argument('--lora_scale', default=1.0)
     args = parser.parse_args()
-    infer(args.model_path, args.lora_path, args.prompt, args.output_dir, args.negative_prompt, args.num_samples, args.scale, args.steps, args.seed)
+    infer(args.model_path, args.lora_path, args.prompt, args.output_dir, args.negative_prompt, args.num_samples, args.scale, args.steps, args.seed, args.lora_scale)
